@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace SistemaWebEmpleado.Validations
 {
@@ -11,16 +12,29 @@ namespace SistemaWebEmpleado.Validations
         }
         public override bool IsValid(object value)
         {
-            string legajo = Convert.ToString(value);
-            legajo.Replace(" ", "");
-           
-            if (legajo.Substring(0, 2) == "AA" && int.TryParse(legajo.Replace("AA", ""), out int numLegajo) && legajo.Replace("AA", "").Length == 5)
+            string check = value as string;
+
+            if (value == null)
             {
-              
-                return true;
+                return false;
+            }
+            else
+
+            if (check.Length != 7)
+            {
+                return false;
             }
             else
             {
+                if (check[0] == 'A' && check[1] == 'A')
+                {
+                    string resultString = Regex.Match(check, @"\d+").Value;
+                    if (resultString.Length == 5)
+                    {
+                        return true;
+                    }
+                }
+
                 return false;
             }
         }
