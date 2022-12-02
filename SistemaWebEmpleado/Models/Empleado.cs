@@ -14,8 +14,8 @@ namespace SistemaWebEmpleado.Models
         [Required]
         public string DNI { get; set; }
 
-        [Required]
         [CheckLegajo]
+        [Required]
         public string Legajo { get; set; }
         [Required]
         public string Titulo { get; set; }
