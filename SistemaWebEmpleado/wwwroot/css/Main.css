@@ -1,0 +1,32 @@
+﻿
+﻿*{
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;  
+}
+
+header{
+    background-color:mediumturquoise;
+    height:150px;
+}
+header h2{
+    color:aliceblue;
+    text-align:end;
+    font-size: 50px;
+}
+.Link{
+    background-color: ghostwhite;
+    height: 20px;
+}
+.navegacion {
+    background-color: yellowgreen;
+    height: 100px;
+}
+.contenido {
+    background-color: ghostwhite;
+    height: 350px;
+}
+footer {
+    background-color: mediumturquoise;
+    height: 50px;
+}
