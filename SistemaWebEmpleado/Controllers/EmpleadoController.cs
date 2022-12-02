@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SistemaWebEmpleado.Data;
 using SistemaWebEmpleado.Models;
 using System;
@@ -48,7 +49,7 @@ namespace SistemaWebEmpleado.Controllers
         }
 
         [HttpGet("/empleado/ListaPorTitulo/{titulo}")]
-        // GET: /person/ListaPorTitulo/titulo
+        // GET: /empleado/ListaPorTitulo/titulo
         public IActionResult ListaPorTitulo(string titulo)
         {
             List<Empleado> lista = (from p in _context.Empleados
@@ -56,5 +57,70 @@ namespace SistemaWebEmpleado.Controllers
                                   select p).ToList();
             return View("Index", lista);
         }
+
+
+        //GET:/Empleado/Delete/id
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Empleado empleado = _context.Empleados.Find(id);
+            return View("Delete", empleado);
+        }
+
+        // POST: /Empleado/Delete
+        [HttpPost]
+        [ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            Empleado empleado = _context.Empleados.Find(id);
+            if (empleado != null)
+            {
+                _context.Empleados.Remove(empleado);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        //GET:Empleado/Edit/id
+        public IActionResult Edit(int id)
+        {
+
+            Empleado empleado = _context.Empleados.Find(id);
+           
+            return View("Edit", empleado);
+
+        }
+
+
+        //POST : Empleado/Edit/id
+        [HttpPost]
+        public IActionResult Edit(Empleado empleado)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                _context.Entry(empleado).State = EntityState.Modified;
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(empleado);
+
+        }
+
+        [HttpGet("/empleado/Details/{id}")]
+        //GET:
+        public IActionResult Details(int id)
+        {
+            Empleado empleado = _context.Empleados.Find(id);
+
+            return View(empleado);    
+        }
+
+
     }
 }
